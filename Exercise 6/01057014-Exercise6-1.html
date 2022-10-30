@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>RollDie</title>
+    <style type="text/css">
+        li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        ol {
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        img.dice {
+            width: 100px;
+            height: 100px;
+        }
+
+        img.congrats {
+            width: 440px;
+        }
+
+        #msg {
+            font-family: Helvetica, "Microsoft YaHei", "LiHei Pro", TW-Kai;
+            font-size: 120%;
+            color: navy;
+        }
+    </style>
+    <script>
+        var die1Image;
+        var die2Image;
+        var die3Image;
+        var die4Image;
+        var dieVal = [], Msg, num = [0, 0, 0, 0, 0, 0, 0], one = [], cnt, score;
+
+        function start() {
+            Msg = "";
+            var button0 = document.getElementById( "rollButton" );
+            var button1 = document.getElementById( "cheatButton" );
+            var button2 = document.getElementById( "cheatButton2" );
+            button0.addEventListener( "click", rollDice, false );
+            button1.addEventListener( "click", cheat1, false );
+            button2.addEventListener( "click", cheat2, false );
+            //button2.addEventListener( "click", cheat2, false );
+            die1Image = document.getElementById( "die1" );
+            die2Image = document.getElementById( "die2" );
+            die3Image = document.getElementById( "die3" );
+            die4Image = document.getElementById( "die4" );
+        }
+        function cheat1 () {
+            dieValue = Math.floor( 1 + Math.random() * 6 );
+            die1Image.setAttribute( "src", "die" + dieValue + ".jpg" ); die1Image.setAttribute( "alt", "die image with " + dieValue + " spot(s)" );
+            die2Image.setAttribute( "src", "die" + dieValue + ".jpg" ); die2Image.setAttribute( "alt", "die image with " + dieValue + " spot(s)" );
+            die3Image.setAttribute( "src", "die" + dieValue + ".jpg" ); die3Image.setAttribute( "alt", "die image with " + dieValue + " spot(s)" );
+            die4Image.setAttribute( "src", "die" + dieValue + ".jpg" ); die4Image.setAttribute( "alt", "die image with " + dieValue + " spot(s)" );
+            Msg = "<p>Congratulations! Your roll is \"一色\"!<p><img src = \"congrats.png\">";
+            showMsg( Msg );
+        }
+        function cheat2 () {
+            dieValue = Math.floor( 1 + Math.random() * 5 );
+            var a = [6, 6, 6, 6], p1, p2;
+            p1 = Math.floor( Math.random() * 4 );
+            p2 = p1; while ( p2 === p1 ) p2 = Math.floor( Math.random() * 4 );
+            a[ p1 ] = dieValue; a[ p2 ] = dieValue;
+            die1Image.setAttribute( "src", "die" + a[0] + ".jpg" ); die1Image.setAttribute( "alt", "die image with " + a[0] + " spot(s)" );
+            die2Image.setAttribute( "src", "die" + a[1] + ".jpg" ); die2Image.setAttribute( "alt", "die image with " + a[1] + " spot(s)" );
+            die3Image.setAttribute( "src", "die" + a[2] + ".jpg" ); die3Image.setAttribute( "alt", "die image with " + a[2] + " spot(s)" );
+            die4Image.setAttribute( "src", "die" + a[3] + ".jpg" ); die4Image.setAttribute( "alt", "die image with " + a[3] + " spot(s)" );
+            Msg = "<p>Congratulations! Your roll is \"十八\"!<p><img src = \"congrats.png\">";
+            showMsg( Msg );
+        }
+        function rollDice()
+        {
+            while ( dieVal.length != 0 ) dieVal.pop();
+            while ( one.length != 0 )    one.pop();
+            for ( var i = 1; i <= 6; i++ ) num[ i ] = 0;
+            setImage( die1Image );
+            setImage( die2Image );
+            setImage( die3Image );
+            setImage( die4Image );
+            Msg = "";
+            cnt = 0;
+            for ( var i = 0; i <  4; i++ ) num[ dieVal[ i ] ]++;    /* 計算哪些數值有幾個 */
+            for ( var i = 1; i <= 6; i++ ) if( num[i] ) {
+                if( num[i] === 1 ) one.push( i );       /* 儲存只出現一次的那些數值 */
+                if( num[i] ) cnt++;                     /* 計算出現幾種數值 */
+            }
+            if ( cnt === 1 ) {          /* 一種數值必為一色 */
+                Msg += "<p>Congratulations! Your roll is \"一色\"!<p><img src = \"congrats.png\">";
+            } else if ( cnt === 4 ) {   /* 四種數值必為無面 */
+                Msg += "Oops! Your roll is \"無面\"!";
+            } else if ( cnt === 3 ) {   /* 三種數值必有一種數值恰為兩個，那分數就是只出現一次的那些數值的總和 */
+                score = 0;
+                for ( var i = 0; i < one.length; i++ ) score += one[ i ];
+                console.log( cnt );
+                Msg += "<p>Your score is " + score + " !</p>" ;
+            } else {                    /* 兩種數值 */
+                if ( one.length === 0 ) {   /* 某兩種都恰好出現兩次 -> 有機會出現十八 */
+                    for ( var i = 6; i >= 1; i-- ) {
+                        if ( num[ i ] != 0 ) {
+                            score = i * 2;
+                            break;
+                        }
+                    }
+                    console.log( score );
+                    if ( score === 12 ) {
+                        Msg += "<p>Congratulations! Your roll is \"十八\"!<p><img src = \"congrats.png\">";
+                    } else {
+                        Msg += "<p>Your score is " + score + " !</p>" ;
+                    }
+                    
+                } else {
+                    for ( var i = 6; i >= 1; i-- ) {
+                        if ( num[ i ] > 1 ) {
+                            score = one[ 0 ] + i;
+                            break;
+                        }
+                    }
+                    console.log( score );
+                    Msg += "<p>Your score is " + score + " !</p>" ;
+                }
+                
+            }
+            showMsg ( Msg );
+        }
+        function setImage( dieImg )
+        {
+            dieValue = Math.floor( 1 + Math.random() * 6 );
+            dieVal.push( dieValue );
+            dieImg.setAttribute( "src", "die" + dieValue + ".jpg" );
+            dieImg.setAttribute( "alt", "die image with " + dieValue + " spot(s)" );
+            showMsg ( Msg );
+        }
+        
+        function showMsg( Msg ) {
+            
+            document.getElementById( "msg" ).innerHTML = Msg;
+        }
+        window.addEventListener( "load", start, false );
+    </script>
+</head>
+
+<body>
+    <form action="#">
+        <input id="rollButton" type="button" value="Roll Dice">
+        <input id="cheatButton" type="button" value="Shortcut">
+        <input id="cheatButton2" type="button" value="Shortcut2">
+    </form>
+    <ol>
+        <li><img id="die1" class="dice" src="blank.jpg" alt="blank image"></li>
+        <li><img id="die2" class="dice" src="blank.jpg" alt="blank image"></li>
+        <li><img id="die3" class="dice" src="blank.jpg" alt="blank image"></li>
+        <li><img id="die4" class="dice" src="blank.jpg" alt="blank image"></li>
+    </ol>
+    <div id="msg"></div>
+</body>
+</html>
