@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>page top</title>
+    <link rel="stylesheet" href="index.css">
+<script type="text/javascript">
+    function setup() {
+        var e = document.getElementById("start");
+        e.addEventListener("animationstart", listener, false);
+        e.addEventListener("animationend", listener, false);
+        e.addEventListener("animationiteration", listener, false);
+
+        var e = document.getElementById("start");
+        e.className = "slidein";
+    }
+    function play(){
+        window.location.href="game.html";
+    }
+</script>
+</head>
+<body style="background-color:blanchedalmond;" onload="setup()" >
+    <div class="wrap">
+        <div class="fontvideo">
+          <video autoplay muted loop>
+            <source src="https://www.shutterstock.com/shutterstock/videos/1058861548/preview/stock-footage-fire-from-heaven-falling-a-huge-fireball-falling-from-sky-devastating-disaster.webm" type="video/mp4">
+          </video>
+          <h2>CANNON</h2>
+        </div>
+        <div class="butn" id="start" onclick="play();"><font face="fantasy">PLAY</font></div>>
+    </div>
+</body>
+
+</html>

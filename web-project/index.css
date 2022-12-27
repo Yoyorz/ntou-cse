@@ -1,0 +1,79 @@
+*{margin:0;padding:0;
+}
+
+.fontvideo video{
+position: absolute;
+width: 100%;
+height: 100%;
+top:0;
+left:0;
+}
+.fontvideo h2{
+position: absolute;
+top:0;
+left:0;
+width: 100%;
+height: 100%;
+font-size: 20vw;
+text-align: center;
+line-height:100vh;
+text-transform:uppercase;
+background-color: #fff;
+mix-blend-mode: screen;
+}
+.butn { 
+position: relative;
+width: 100%;
+height: 100%;
+top: 600px;
+display: flex;
+justify-content: center;  
+font-size: 3em;
+animation-duration: 3s;
+animation-name: slidein;
+}
+@keyframes slidein{
+    from {
+        margin-left:  100%;
+        width: 300%;    
+    }to{
+        margin: 0%;
+        width: 100%;
+    }
+}
+.butn:hover{
+    color: #72c2a1;
+    font-size: 3.5em;
+}
+.set {
+    width: 120%;
+    height: 400px;
+    display: flex;}
+.set div{margin: auto;}
+.ball > div {
+  background-color: #72c2a1;
+  height: 20px;
+  width: 20px;
+  border-radius: 150%;
+  display: inline-block;
+  animation: stretchdelay 0.7s infinite ease-in-out;
+  
+  }
+.ball .circle1 {animation-delay: 0; }
+.ball .circle2 {animation-delay: 0.1s;}
+.ball .circle3 {animation-delay: 0.2s;}
+.ball .circle4 {animation-delay: 0.3s;}
+@keyframes stretchdelay {
+    0%, 40%, 100% { transform: translateY(0px);}
+    20% {transform: translateY(-10px);}
+}  
+.log{
+    position: relative;
+    height: 0;
+    width: 50%;
+}
+
+
+.navicon {
+display: none
+}

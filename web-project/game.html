@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Cannon</title>
+    <link rel="stylesheet" href="game.css">
+    <script
+    src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+    crossorigin="anonymous"></script>
+    <script src="myCannon.js"></script>
+    <script src="game.js"></script>
+</head>
+<body>
+
+<canvas id="cont" width="800px" height="500px" style="background: #07252d;">您的瀏覽器版本過低，請升級瀏覽器或者使用chrome打開！</canvas>
+<canvas id="timer" width="100px" height="100px">您的瀏覽器版本過低，請升級瀏覽器或者使用chrome打開！</canvas>
+<div id="button" onclick="reset()">Play Again</div>
+<img id="cat"    src="cat.gif" />
+
+<nav>
+    <div class="info">
+        <ul id="ul">
+            <li><span>遊戲資訊</span></li>
+            <li class="section">1<span>封面設計</span><ul class="sub"><li id="author1"></li></ul>
+            </li>
+            <li class="section">2<span>遊戲設計</span><ul class="sub"><li id="author2"></li></ul>
+            </li>
+            <li class="section">3<span>移動砲台</span><ul class="sub"><li id="op1"></li></ul>
+            </li>
+            <li class="section">4<span>旋轉砲管</span><ul class="sub"><li id="op2"></li></ul>
+            </li>
+            <li class="section">5<span>發射小球</span><ul class="sub"><li id="op3"></li></ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>
